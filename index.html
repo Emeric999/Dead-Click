@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<title>Catastrophe Click</title>
+<meta name="description" content="Un simple clic peut tout changer… Oserez-vous appuyer sur le bouton rouge ? Chaque phrase vous regarde et vous frôle le pire. Attention, plus vous cliquez, plus l’angoisse monte… Osez tester votre courage, si vous l’osez.">
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
+<style>
+body{
+background:black;
+color:white;
+font-family:'Arial', sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+flex-direction:column;
+margin:0;
+text-align:center;
+}
+
+button{
+font-size:40px;
+padding:30px 60px;
+background:red;
+color:white;
+border:none;
+border-radius:15px;
+cursor:pointer;
+}
+
+#message{
+font-family:'Creepster', cursive;
+font-size:50px;
+max-width:900px;
+padding:20px;
+color:#ff0000;
+text-shadow:0 0 5px red,0 0 10px red,2px 2px 0 black;
+}
+
+#reset{
+position:fixed;
+bottom:25px;
+right:25px;
+font-size:35px;
+cursor:pointer;
+display:none;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="title">⚠ NE CLIQUE PAS</h1>
+
+<button id="btn" onclick="danger()">🔴</button>
+
+<div id="message"></div>
+
+<div id="reset" onclick="reset()">🔄</div>
+
+<script>
+// Liste de phrases (tu peux en ajouter jusqu'à 200 pour plus de suspense)
+let phrases = [
+"Tu n'aurais vraiment pas dû faire ça.",
+"Pourquoi tu as cliqué ?",
+"Quelqu'un te regarde.",
+"Tu aurais dû écouter.",
+"Il est trop tard maintenant.",
+"Tu as réveillé quelque chose.",
+"Les ombres t'observent.",
+"Ne te retourne pas.",
+"Quelque chose est derrière toi.",
+"Tu aurais dû fermer ce site.",
+"Il sait que tu es là.",
+"Tes clics attirent l'attention.",
+"Chaque seconde compte.",
+"Les murs ont des yeux.",
+"Quelque chose approche.",
+"Tu es observé.",
+"Il est trop tard.",
+"Tu es déjà allé trop loin.",
+"Il arrive.",
+"Maintenant... il te voit."
+];
+
+let availablePhrases = [...phrases];
+let clickCount = 0;
+
+function danger(){
+clickCount++;
+
+document.getElementById("title").style.display="none";
+document.getElementById("btn").style.display="none";
+document.getElementById("reset").style.display="block";
+
+// Si toutes utilisées, réinitialiser
+if(availablePhrases.length === 0){
+availablePhrases = [...phrases];
+}
+
+// Tirage aléatoire d'une phrase différente
+let index = Math.floor(Math.random()*availablePhrases.length);
+let msg = availablePhrases[index];
+
+// Supprime la phrase pour qu'elle ne se répète pas
+availablePhrases.splice(index,1);
+
+// Affiche
+document.getElementById("message").innerText = msg;
+}
+
+function reset(){
+document.getElementById("title").style.display="block";
+document.getElementById("btn").style.display="block";
+document.getElementById("message").innerText="";
+document.getElementById("reset").style.display="none";
+availablePhrases = [...phrases];
+clickCount = 0;
+}
+</script>
+
+</body>
+</html>
